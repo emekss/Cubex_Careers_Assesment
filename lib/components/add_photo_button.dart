@@ -13,15 +13,15 @@ class AddPhotoButton extends StatefulWidget {
 class _AddPhotoButtonState extends State<AddPhotoButton> {
   File? _image;
 
-  Future getImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future getImage(ImageSource source) async {
+    final image = await ImagePicker().pickImage(source: source);
 
     if (image == null) return;
 
     final ImageTemporary = File(image.path);
 
     setState(() {
-      this._image = ImageTemporary;
+      _image = ImageTemporary;
     });
   }
 
@@ -29,7 +29,7 @@ class _AddPhotoButtonState extends State<AddPhotoButton> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        getImage();
+        getImage(ImageSource.gallery);
       },
       child: Container(
         height: 50,
