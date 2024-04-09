@@ -1,3 +1,4 @@
+import 'package:cubex_careers/screens/registration_screen.dart';
 import 'package:cubex_careers/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      home: RegistrationScreen(),
     );
   }
 }
