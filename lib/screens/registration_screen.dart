@@ -142,37 +142,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             const SizedBox(height: 10),
             Center(
-                child: GestureDetector(
-              onTap: () {
-                getImage(ImageSource.gallery);
-              },
-              child: Container(
-                height: 50,
-                width: 170,
-                decoration: BoxDecoration(
-                  color: Colors.green.shade800,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.add_a_photo_rounded,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      'add photo',
-                      style: TextStyle(
-                        fontSize: 17,
+              child: GestureDetector(
+                onTap: () {
+                  getImage(ImageSource.gallery);
+                },
+                child: Container(
+                  height: 50,
+                  width: 170,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade800,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: const Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.add_a_photo_rounded,
                         color: Colors.white,
-                        fontWeight: FontWeight.w600,
                       ),
-                    ),
-                  ],
+                      Text(
+                        'add photo',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            )),
+            ),
             const SizedBox(height: 10),
             const Center(
               child: SignUpButton(),
