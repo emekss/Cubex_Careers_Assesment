@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cubex_careers/components/sign_up_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -11,18 +13,30 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  File? _image;
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
 
-  Future getImage(ImageSource source) async {
-    final image = await ImagePicker().pickImage(source: source);
-
-    if (image == null) return print('No image selected');
-
-    final imageTemporary = File(image.path);
-
-    setState(() {
-      _image = imageTemporary;
-    });
+  void signUp(String username, email, password, phoneNumber, address) async {
+    try {
+      Response response =
+          await post(Uri.parse('https://stacked.com.ng/api/register'), body: {
+        'username': username,
+        'email': email,
+        'password': password,
+        'phoneNumber': phoneNumber,
+        'address': address,
+      });
+      if (response.statusCode == 201) {
+        print('account created');
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -57,10 +71,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Username',
                   style: TextStyle(
                       color: Colors.black,
@@ -68,14 +82,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       fontSize: 18),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: userNameController,
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Enter username',
                     hintStyle: TextStyle(color: Colors.grey),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Email',
                   style: TextStyle(
                       color: Colors.black,
@@ -83,15 +98,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       fontSize: 18),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: emailController,
+                  decoration: const InputDecoration(
                     fillColor: Colors.lightGreen,
                     border: OutlineInputBorder(),
                     hintText: 'Enter email',
-                    suffixIcon: Icon(Icons.remove_red_eye_rounded),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Password',
                   style: TextStyle(
                       color: Colors.black,
@@ -99,15 +114,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       fontSize: 18),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: passwordController,
+                  decoration: const InputDecoration(
                     fillColor: Colors.lightGreen,
                     border: OutlineInputBorder(),
                     hintText: 'Enter password',
                     suffixIcon: Icon(Icons.remove_red_eye_rounded),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Phone Number',
                   style: TextStyle(
                       color: Colors.black,
@@ -115,15 +131,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       fontSize: 18),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: phoneNumberController,
+                  decoration: const InputDecoration(
                     fillColor: Colors.lightGreen,
                     border: OutlineInputBorder(),
                     hintText: 'Enter phone number',
-                    suffixIcon: Icon(Icons.remove_red_eye_rounded),
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Address',
                   style: TextStyle(
                       color: Colors.black,
@@ -131,52 +147,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       fontSize: 18),
                 ),
                 TextField(
-                  decoration: InputDecoration(
+                  controller: addressController,
+                  decoration: const InputDecoration(
                     fillColor: Colors.lightGreen,
                     border: OutlineInputBorder(),
                     hintText: 'Enter address',
-                    suffixIcon: Icon(Icons.remove_red_eye_rounded),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: GestureDetector(
-                onTap: () {
-                  getImage(ImageSource.gallery);
-                },
-                child: Container(
-                  height: 50,
-                  width: 170,
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade800,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: const Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        Icons.add_a_photo_rounded,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'add photo',
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            const Center(
-              child: SignUpButton(),
+                  onTap: () {
+                    signUp(
+                      userNameController.text.toString(),
+                      emailController.text.toString(),
+                      passwordController.text.toString(),
+                      phoneNumberController.text.toString(),
+                      addressController.text.toString(),
+                    );
+                  },
+                  child: const SignUpButton()),
             ),
           ],
         ),

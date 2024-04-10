@@ -15,13 +15,16 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    const user = UserPreferences.myUser;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           'User Profile',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
+        leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -140,6 +143,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fontSize: 18,
                     color: Colors.white,
                     fontWeight: FontWeight.w600),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              '',
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.green.shade800,
               ),
             ),
           ],
