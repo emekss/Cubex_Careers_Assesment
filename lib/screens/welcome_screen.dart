@@ -18,7 +18,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(seconds: 3),
     );
     logoFadeAnimation = Tween<double>(begin: 0, end: 1).animate(controller);
     controller.forward();

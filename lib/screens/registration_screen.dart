@@ -1,8 +1,5 @@
 import 'package:cubex_careers/components/sign_up_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -21,40 +18,22 @@ class _RegistrationScreenState extends State<RegistrationScreen>
 
   late AnimationController controller;
   late Animation<Offset> slideTransition;
-  late List<Animation<Offset>> textFieldAnimation = [];
+  late Animation<double> signUpButtonAnimation;
 
   @override
   void initState() {
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 2),
     );
 
     slideTransition =
-        Tween(begin: const Offset(-1, 1), end: Offset.zero).animate(controller);
+        Tween(begin: const Offset(-1, 0), end: Offset.zero).animate(controller);
+
+    signUpButtonAnimation = Tween<double>(begin: 0, end: 1).animate(controller);
 
     controller.forward();
-  }
-
-  void signUp(String username, email, password, phoneNumber, address) async {
-    try {
-      Response response =
-          await post(Uri.parse('https://stacked.com.ng/api/register'), body: {
-        'username': username,
-        'email': email,
-        'password': password,
-        'phoneNumber': phoneNumber,
-        'address': address,
-      });
-      if (response.statusCode == 201) {
-        print('account created');
-      } else {
-        print('failed');
-      }
-    } catch (e) {
-      print(e.toString());
-    }
   }
 
   @override
@@ -180,16 +159,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
             const SizedBox(height: 10),
             const SizedBox(height: 10),
             Center(
-              child: GestureDetector(
-                onTap: () {
-                  signUp(
-                    userNameController.text.toString(),
-                    emailController.text.toString(),
-                    passwordController.text.toString(),
-                    phoneNumberController.text.toString(),
-                    addressController.text.toString(),
-                  );
-                },
+              child: FadeTransition(
+                opacity: signUpButtonAnimation,
                 child: const SignUpButton(),
               ),
             ),

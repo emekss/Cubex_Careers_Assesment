@@ -1,6 +1,5 @@
 import 'package:cubex_careers/util/user_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../components/profile_widget.dart';
 import '../model/user.dart';
