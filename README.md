@@ -97,7 +97,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 If you have any questions or suggestions, feel free to reach out!
 
 - Email: princeukaga@gmail.com
-- GitHub: [yourusername](https://github.com/emekss)
+- GitHub: (https://github.com/emekss)
 
 Thank you for using Cubex Career Assessments! We hope it helps you on your career journey!
 
